@@ -82,6 +82,8 @@ async function localizedSpeciesName(id){
  return {name:zh||ja||en,species:sp};
 }
 function shuffled(arr){return [...arr].sort(()=>Math.random()-.5)}
+// 將名稱正規化，供選項去重使用（忽略空白與大小寫）
+function norm(value){return String(value??'').normalize('NFKC').trim().toLocaleLowerCase()}
 async function buildChoices(){
  const distractors=shuffled(pool.filter(p=>p.id!==target.id)).slice(0,choiceCount-1);
  const ids=shuffled([target,...distractors]);
